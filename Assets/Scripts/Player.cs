@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
     public Button FlagButtom;
 
     private bool isMoving = false;
+
+    public int PlayerNumber;
+    public GameManager gm;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -78,5 +82,7 @@ public class Player : MonoBehaviour
         Instantiate(ownFlag,playerPosition, Quaternion.identity);
 
         Instantiate(obj, new Vector2(Random.Range(-5, 5), Random.Range(-5, 5)), Quaternion.identity);
+        gm.flagPosition.Add(playerPosition);
+        gm.flagcolor.Add(PlayerNumber);
     }
 }
