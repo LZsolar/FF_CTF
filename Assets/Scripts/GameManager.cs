@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
         if (flagPosition.Count > i)
         {
             i++;
-            print("Now position:" + i);
+         //   print("Now position:" + i +"AT"+flagPosition[i-1].x+"     "+flagPosition[i-1].y);
         }
     }
 }
