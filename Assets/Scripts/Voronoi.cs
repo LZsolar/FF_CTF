@@ -7,8 +7,8 @@ public class Voronoi : MonoBehaviour
 
     public GameObject upper,downer,lefter,righter;
 
-    private int width;
-    private int height;
+    public int width;
+    public int height;
 
 
     private VoronoiDiagram<Color> voronoiDiagram;
@@ -18,8 +18,21 @@ public class Voronoi : MonoBehaviour
 
     private void Start()
     {
-        height = (int)(Mathf.Abs(upper.transform.position.y - downer.transform.position.y))*100;
-        width = (int)(Mathf.Abs(lefter.transform.position.x - righter.transform.position.x))*100;
+        height = (int)((upper.transform.position.y - downer.transform.position.y))*100;
+        width = (int)((righter.transform.position.x - lefter.transform.position.x))*100;
+
+        Vector2 newy = new Vector2(-9, -4);
+        gm.flagPosition.Add(newy);
+        newy = new Vector2(-9,4);
+        gm.flagPosition.Add(newy);
+        newy = new Vector2(9,4);
+        gm.flagPosition.Add(newy);
+        newy = new Vector2(9,-4);
+        gm.flagPosition.Add(newy);
+        gm.flagcolor.Add(3);
+        gm.flagcolor.Add(3);
+        gm.flagcolor.Add(3);
+        gm.flagcolor.Add(3);
     }
 
     public void ending()
@@ -33,25 +46,28 @@ public class Voronoi : MonoBehaviour
         for(int i = 0;i<gm.flagPosition.Count;i++)
         {
             Vector2 point  = gm.flagPosition[i];
-            float randY = Mathf.Abs(upper.transform.position.y - point.y)*100;
-            float randX = Mathf.Abs(lefter.transform.position.x - point.x)*100;
+            float randY = (upper.transform.position.y - point.y)*100;
+            float randX = (righter.transform.position.x - point.x)*100;
             //print("Now adding"+ randY+"   "+randX);
+
             var p = new Vector2(randX, randY);
             Color randColor; 
 
             switch (gm.flagcolor[i])
             {
-               // case 1:randColor = Color.red; break;
-                //case 0:randColor = Color.blue; break;
+                case 1:randColor = Color.red; break;
+                case 0:randColor = Color.blue; break;
+                case 3: randColor = Color.white; break;
                 default: randColor = new Color(Random.value, Random.value, Random.value); break;
             }
-
+            if (!points.Exists(item => item.Coordinate == p))
+            {
                 points.Add(new VoronoiDiagramSite<Color>(p, randColor));
-            
+            }
         }
 
         voronoiDiagram.AddSites(points);
-        voronoiDiagram.GenerateSites(2);
+        voronoiDiagram.GenerateSites(1);
 
         voronoiTexture = new Texture2D(width, height);
         voronoiTexture.SetPixels(voronoiDiagram.Get1DSampleArray());
@@ -59,5 +75,7 @@ public class Voronoi : MonoBehaviour
 
         var spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = Sprite.Create(voronoiTexture, new Rect(0f, 0f, width, height), new Vector2(0.5f, 0.5f));
+
     }
+
 }
