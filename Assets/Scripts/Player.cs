@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        FlagButtom.gameObject.SetActive(false);
+        FlagButtom.gameObject.GetComponent<Button>().interactable = false;
     }
     public void Moving()
     {
@@ -61,11 +61,12 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Flag"))
+        if (other.gameObject.CompareTag("Flag")  && !this.getFlag)
         {
             Destroy(other.gameObject); // destroy the object with the specified tag
             getFlag = true;
-            FlagButtom.gameObject.SetActive(true);
+            FlagButtom.gameObject.GetComponent<Button>().interactable = true;
+            Instantiate(obj, new Vector2(Random.Range(-5, 5), Random.Range(-5, 5)), Quaternion.identity);
         }
     }
 
@@ -75,13 +76,12 @@ public class Player : MonoBehaviour
     }
     public void OnClick()
     {
-        FlagButtom.gameObject.SetActive(false);
+        FlagButtom.gameObject.GetComponent<Button>().interactable = false;
         getFlag = false;
         Vector2 playerPosition = GetPlayerPosition();
             
         Instantiate(ownFlag,playerPosition, Quaternion.identity);
 
-        Instantiate(obj, new Vector2(Random.Range(-5, 5), Random.Range(-5, 5)), Quaternion.identity);
         gm.flagPosition.Add(playerPosition);
         gm.flagcolor.Add(PlayerNumber);
     }

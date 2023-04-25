@@ -1,55 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CountColor : MonoBehaviour
 {
-    public SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer; // the sprite renderer component of the GameObject
+    public Color[] colorsToCount; // the colors to count
+    public string[] colorNames; // the names of the colors to display
+    public float[] colorPercentages; // the percentage of each color
 
+    [SerializeField]
+    public TextMeshProUGUI redDisplay, BlueDisplay, VillageDiaplay,winner;
 
     public void Counting()
-    { // Get the SpriteRenderer component of the GameObject
-        spriteRenderer = GetComponent<SpriteRenderer>();
+    {
+        // Initialize the color percentages to 0
+        colorPercentages = new float[colorsToCount.Length];
 
         // Get the texture of the sprite
         Texture2D texture = spriteRenderer.sprite.texture;
 
-        // Create a dictionary to store the count of each color
-        Dictionary<Color, int> colorCounts = new Dictionary<Color, int>();
-
-        // Loop through every pixel in the texture
-        for (int x = 0; x < texture.width; x++)
+        // Loop through all pixels in the texture
+        for (int y = 0; y < texture.height; y++)
         {
-            for (int y = 0; y < texture.height; y++)
+            for (int x = 0; x < texture.width; x++)
             {
                 // Get the color of the pixel
-                Color color = texture.GetPixel(x, y);
+                Color pixelColor = texture.GetPixel(x, y);
 
-                // If the color is not transparent
-                if (color.a != 0)
+                // Loop through all the colors to count
+                for (int i = 0; i < colorsToCount.Length; i++)
                 {
-                    // If the color is not already in the dictionary, add it with a count of 1
-                    if (!colorCounts.ContainsKey(color))
+                    // If the pixel color matches the color to count, add 1 to the color count
+                    if (pixelColor == colorsToCount[i])
                     {
-                        colorCounts.Add(color, 1);
-                    }
-                    // If the color is already in the dictionary, increment its count
-                    else
-                    {
-                        colorCounts[color]++;
+                        colorPercentages[i] += 1;
                     }
                 }
             }
         }
 
-        // Calculate the total number of pixels
-        int totalPixels = texture.width * texture.height;
+        float totalPixels = texture.width * texture.height;
 
-        // Loop through the dictionary and print the percentage of each color
-        foreach (Color color in colorCounts.Keys)
+
+        // Calculate the percentage of each color
+        for (int i = 0; i < colorsToCount.Length; i++)
         {
-            float percentage = ((float)colorCounts[color] / totalPixels) * 100f;
-            Debug.Log("Color " + color.ToString() + " makes up " + percentage.ToString() + "% of the sprite.");
+            colorPercentages[i] = (colorPercentages[i] / totalPixels) * 100;
         }
+
+        redDisplay.text = "RED : "+ colorPercentages[0]+"%";
+        BlueDisplay.text = "BLUE : " + colorPercentages[1] + "%";
+        VillageDiaplay.text = "Village : " + colorPercentages[2] + "%";
+
+        if(colorPercentages[2]>colorPercentages[1] && colorPercentages[2] > colorPercentages[0])
+        {
+            winner.text = "NO ONE is THE WINNER";
+        }
+        else if (colorPercentages[1] > colorPercentages[0])
+        {
+            winner.text = "BLUE is THE WINNER";
+        }
+        else
+        {
+            winner.text = "RED is THE WINNER";
+        }
+
+        
     }
 }

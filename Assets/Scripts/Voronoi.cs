@@ -21,13 +21,13 @@ public class Voronoi : MonoBehaviour
         height = (int)((upper.transform.position.y - downer.transform.position.y))*100;
         width = (int)((righter.transform.position.x - lefter.transform.position.x))*100;
 
-        Vector2 newy = new Vector2(-9, -4);
+        Vector2 newy = new Vector2(lefter.transform.position.x+1, downer.transform.position.y + 1);
         gm.flagPosition.Add(newy);
-        newy = new Vector2(-9,4);
+        newy = new Vector2(lefter.transform.position.x + 1, upper.transform.position.y-1);
         gm.flagPosition.Add(newy);
-        newy = new Vector2(9,4);
+        newy = new Vector2(righter.transform.position.x - 1, upper.transform.position.y - 1);
         gm.flagPosition.Add(newy);
-        newy = new Vector2(9,-4);
+        newy = new Vector2(righter.transform.position.x - 1, downer.transform.position.y + 1);
         gm.flagPosition.Add(newy);
         gm.flagcolor.Add(3);
         gm.flagcolor.Add(3);
