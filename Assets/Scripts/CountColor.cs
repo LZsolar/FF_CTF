@@ -11,7 +11,7 @@ public class CountColor : MonoBehaviour
     public float[] colorPercentages; // the percentage of each color
 
     [SerializeField]
-    public TextMeshProUGUI redDisplay, BlueDisplay, VillageDiaplay,winner;
+    public TextMeshProUGUI redDisplay, BlueDisplay,winner;
 
     public void Counting()
     {
@@ -49,16 +49,12 @@ public class CountColor : MonoBehaviour
         {
             colorPercentages[i] = (colorPercentages[i] / totalPixels) * 100;
         }
+        double red = (colorPercentages[0] / (colorPercentages[0] + colorPercentages[1])) *100;
+        double blue = (colorPercentages[1] / (colorPercentages[1] + colorPercentages[0])) *100;
+        redDisplay.text = "RED : " + red.ToString("F2") + "%";
+        BlueDisplay.text = "BLUE : " + blue.ToString("F2") + "%";
 
-        redDisplay.text = "RED : "+ colorPercentages[0]+"%";
-        BlueDisplay.text = "BLUE : " + colorPercentages[1] + "%";
-        VillageDiaplay.text = "Village : " + colorPercentages[2] + "%";
-
-        if(colorPercentages[2]>colorPercentages[1] && colorPercentages[2] > colorPercentages[0])
-        {
-            winner.text = "NO ONE is THE WINNER";
-        }
-        else if (colorPercentages[1] > colorPercentages[0])
+        if (colorPercentages[1] > colorPercentages[0])
         {
             winner.text = "BLUE is THE WINNER";
         }
