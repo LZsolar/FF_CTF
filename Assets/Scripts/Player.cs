@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
             Destroy(other.gameObject); // destroy the object with the specified tag
             getFlag = true;
             FlagButtom.gameObject.GetComponent<Button>().interactable = true;
-            Instantiate(obj, new Vector2(Random.Range(-5, 5), Random.Range(-5, 5)), Quaternion.identity);
+            Instantiate(obj, new Vector2(Random.Range(-7, 7), Random.Range(-4, 4)), Quaternion.identity);
         }
     }
 

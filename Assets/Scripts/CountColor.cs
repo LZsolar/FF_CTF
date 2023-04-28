@@ -58,6 +58,10 @@ public class CountColor : MonoBehaviour
         {
             winner.text = "BLUE is THE WINNER";
         }
+        else if (colorPercentages[1] == colorPercentages[0])
+        {
+            winner.text = "DRAW";
+        }
         else
         {
             winner.text = "RED is THE WINNER";
