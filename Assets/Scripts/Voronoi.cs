@@ -57,7 +57,7 @@ public class Voronoi : MonoBehaviour
             {
                 case 1:randColor = Color.red; break;
                 case 0:randColor = Color.blue; break;
-                case 3: randColor = Color.white; break;
+                case 3: randColor = new Color32(166,166,166,1); break;
                 default: randColor = new Color(Random.value, Random.value, Random.value); break;
             }
             if (!points.Exists(item => item.Coordinate == p))

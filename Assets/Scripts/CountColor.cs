@@ -56,7 +56,7 @@ public class CountColor : MonoBehaviour
 
         if (colorPercentages[1] > colorPercentages[0])
         {
-            winner.text = "BLUE is THE WINNER";
+            winner.text = "<color=blue>BLUE</color> is THE WINNER";
         }
         else if (colorPercentages[1] == colorPercentages[0])
         {
@@ -64,7 +64,7 @@ public class CountColor : MonoBehaviour
         }
         else
         {
-            winner.text = "RED is THE WINNER";
+            winner.text = "<color=red>RED</color> is THE WINNER";
         }
 
         

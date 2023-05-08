@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     public GameObject obj;
     public GameObject ownFlag;
+    public GameObject HeadFlag;
     private bool getFlag = false;
     private bool rotate = false;
 
@@ -25,6 +26,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         FlagButtom.gameObject.GetComponent<Button>().interactable = false;
+        HeadFlag.SetActive(false);
     }
     public void Moving()
     {
@@ -64,7 +66,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Flag")  && !this.getFlag)
         {
             Destroy(other.gameObject); // destroy the object with the specified tag
-            getFlag = true;
+            getFlag = true; HeadFlag.SetActive(true);
             FlagButtom.gameObject.GetComponent<Button>().interactable = true;
             Instantiate(obj, new Vector2(Random.Range(-7, 7), Random.Range(-4, 4)), Quaternion.identity);
         }
@@ -77,7 +79,7 @@ public class Player : MonoBehaviour
     public void OnClick()
     {
         FlagButtom.gameObject.GetComponent<Button>().interactable = false;
-        getFlag = false;
+        getFlag = false; HeadFlag.SetActive(false);
         Vector2 playerPosition = GetPlayerPosition();
             
         Instantiate(ownFlag,playerPosition, Quaternion.identity);
