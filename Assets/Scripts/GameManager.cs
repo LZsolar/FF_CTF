@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     private float currentTime;
 
     private bool isGameEnd = false;
-    private bool isGameStart = false;
+    public bool isGameStart = false;
     public GameObject endingCanvas;
 
     public GameObject readyButton;

@@ -39,24 +39,26 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
-        
-        if (isMoving)
+        if (gm.isGameStart)
         {
-            rb.velocity = transform.up * moveSpeed;
+            if (isMoving)
+            {
+                rb.velocity = transform.up * moveSpeed;
 
-        }
-        // Stop moving the player when the key is released
-        else if(rotate)
-        {
-            isMoving = false;
-            transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
-            rb.velocity = Vector2.zero;
-        }
-        else
-        {
-            isMoving = false;
-            transform.Rotate(Vector3.back * rotationSpeed * Time.deltaTime);
-            rb.velocity = Vector2.zero;
+            }
+            // Stop moving the player when the key is released
+            else if (rotate)
+            {
+                isMoving = false;
+                transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+                rb.velocity = Vector2.zero;
+            }
+            else
+            {
+                isMoving = false;
+                transform.Rotate(Vector3.back * rotationSpeed * Time.deltaTime);
+                rb.velocity = Vector2.zero;
+            }
         }
         
     }
