@@ -21,9 +21,19 @@ public class Player : MonoBehaviour
 
     public int PlayerNumber;
     public GameManager gm;
-    
+
+    public AudioClip buttonSound;
+    public AudioClip placeSound;
+    private AudioSource audioSource;
+    private Animator animator;
+    public GameObject shadow;
+    private Animator shadowAnimator;
+
     void Start()
     {
+        animator = GetComponent<Animator>();
+        shadowAnimator = shadow.GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         FlagButtom.gameObject.GetComponent<Button>().interactable = false;
         HeadFlag.SetActive(false);
@@ -31,11 +41,15 @@ public class Player : MonoBehaviour
     public void Moving()
     {
         isMoving = true;
+        animator.SetBool("moving", true);
+        shadowAnimator.SetBool("moving", true);
     }
     public void stopMoving()
     {
         isMoving = false;
         rotate = !rotate;
+        animator.SetBool("moving", false);
+        shadowAnimator.SetBool("moving", false);
     }
     void FixedUpdate()
     {
@@ -67,6 +81,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Flag")  && !this.getFlag)
         {
+            audioSource.PlayOneShot(buttonSound);
             Destroy(other.gameObject); // destroy the object with the specified tag
             getFlag = true; HeadFlag.SetActive(true);
             FlagButtom.gameObject.GetComponent<Button>().interactable = true;
@@ -80,6 +95,7 @@ public class Player : MonoBehaviour
     }
     public void OnClick()
     {
+        audioSource.PlayOneShot(placeSound);
         FlagButtom.gameObject.GetComponent<Button>().interactable = false;
         getFlag = false; HeadFlag.SetActive(false);
         Vector2 playerPosition = GetPlayerPosition();

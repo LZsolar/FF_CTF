@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour
     public GameObject readymenu;
     public TextMeshProUGUI countdownText;
 
+    public AudioClip backgroundMusic;
+
+    private AudioSource audioSource;
+
     void Start()
     {
         timerText.text = "Remaining Time : " + timeLimit.ToString();
@@ -35,6 +39,8 @@ public class GameManager : MonoBehaviour
         countdownText.text = "";
         isGameStart = false;
         isGameEnd = false;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = backgroundMusic;
     }
 
     private void Update()
@@ -92,6 +98,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         readymenu.SetActive(false);
         isGameStart = true;
+        audioSource.loop = true;
+        audioSource.Play();
     }
     
 }

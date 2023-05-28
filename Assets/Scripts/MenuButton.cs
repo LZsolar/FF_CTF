@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class MenuButton : MonoBehaviour
 {
     public GameManager gm;
+
     public void startAndRestartGame()
     {
         Time.timeScale = 1;

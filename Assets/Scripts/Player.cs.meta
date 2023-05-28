@@ -3,7 +3,14 @@ guid: 774809480b3481b499389cdc501abd71
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - obj: {instanceID: 0}
+  - ownFlag: {instanceID: 0}
+  - HeadFlag: {instanceID: 0}
+  - MoveButton: {instanceID: 0}
+  - FlagButtom: {instanceID: 0}
+  - gm: {instanceID: 0}
+  - buttonSound: {fileID: 8300000, guid: 6502b6ebebb4c0b4587af3883dc56d9b, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
