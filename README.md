@@ -1,4 +1,4 @@
-# FF_CTF
+# Festival Frenzy :: Capture the flag
 a game project for GDM221/GDM222
 
 Unity Project : This Github!
